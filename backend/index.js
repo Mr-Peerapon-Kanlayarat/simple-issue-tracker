@@ -189,6 +189,24 @@ app.get("/api/projects/:projectId/issues", async (req, res) => {
   }
 });
 
+// PUT update issue status
+app.put("/api/issues/:issueId", async (req, res) => {
+  try {
+    const id = req.params.issueId;
+    const { status } = req.body;
+    const issue = await Issue.findByPk(id);
+    if (!issue) {
+      return res.status(404).json({ message: "Issue not found" });
+    }
+    issue.status = status;
+    await issue.save();
+    res.json(issue);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Something went wrong", error: err.message });
+  }
+});
+
 app.listen(port, async () => {
 
   await sequelize.sync();
