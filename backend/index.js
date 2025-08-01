@@ -156,6 +156,39 @@ app.get("/api/projects/:userId", async (req, res) => {
     }
 });
 
+// Issues
+// POST create issues
+app.post("/api/projects/:projectId/issues", async (req, res) => {
+  try {
+    const data = req.body;
+    const projectId = req.params.projectId;
+    const issue = await Issue.create({ ...data, projectId });
+    res.json(issue);
+  } catch (err) {
+    console.error(err);
+    res.json({
+      message: "something went wrong",
+      error: err.errors.map((e) => e.message),
+    });
+  }
+});
+
+// GET issues by projectId
+app.get("/api/projects/:projectId/issues", async (req, res) => {
+  try {
+    const projectId = req.params.projectId;
+
+    const issues = await Issue.findAll({
+      where: { projectId: projectId },
+    });
+
+    res.json(issues);
+  } catch (err) {
+    console.error(err);
+    res.json(err);
+  }
+});
+
 app.listen(port, async () => {
 
   await sequelize.sync();

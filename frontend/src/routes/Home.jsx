@@ -23,12 +23,6 @@ function Home() {
     getData();
   }, []);
 
-  // const data = [
-  //   { id: 1, name: "Project A", description: "Description for Project A" },
-  //   { id: 2, name: "Project B", description: "Description for Project B" },
-  //   { id: 3, name: "Project C", description: "Description for Project C" },
-  // ]
-
   return (
     <div className="home">
       <h1>Projects</h1>
