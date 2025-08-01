@@ -22,9 +22,6 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      valipublishDate: {
-        isEmail: true,
-      },
     },
     password: {
       type: DataTypes.STRING,
@@ -34,8 +31,51 @@ const User = sequelize.define(
   {},
 );
 
-// POST /users
-app.post("/api/users", async (req, res) => {
+const Project = sequelize.define(
+  "projects",
+  {
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+    },
+  },
+  {},
+);
+
+User.hasMany(Project);
+Project.belongsTo(User);
+
+const Issue = sequelize.define(
+  "issues",
+  {
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "open",
+    },
+  },
+  {},
+);
+
+Project.hasMany(Issue);
+Issue.belongsTo(Project);
+
+//--------------------------------------
+
+// Users
+
+// POST users register
+app.post("/api/users/register", async (req, res) => {
   try {
     const data = req.body;
 
@@ -50,7 +90,7 @@ app.post("/api/users", async (req, res) => {
   }
 });
 
-// GET /users
+// GET all users
 app.get("/api/users", async (req, res) => {
   try {
     const users = await User.findAll();
@@ -60,11 +100,62 @@ app.get("/api/users", async (req, res) => {
   }
 });
 
+app.get("/api/users/:id/projects", async (req, res) => {
+  try {
+    const userId = req.params.id;
 
+    const result = await User.findOne({
+      where: { id: userId },
+      include: {
+        model: Project,
+      },
+      raw: true,
+    });
+
+    res.json(result);
+  } catch (err) {
+    console.error(err);
+    res.json(err);
+  }
+});
+
+// Projects
+
+// POST create projects
+app.post("/api/projects", async (req, res) => {
+  try {
+    const data = req.body;
+
+    const project = await Project.create(data);
+    res.json(project);
+  } catch (err) {
+    console.error(err);
+    res.json({
+      message: "something went wrong",
+      error: err.errors.map((e) => e.message),
+    });
+  }
+});
+
+// GET projects by userId
+app.get("/api/projects/:userId", async (req, res) => {
+    try {
+        const userId = req.params.userId;
+    
+        const projects = await Project.findAll({
+        where: { userId: userId },
+        });
+    
+        res.json(projects);
+    } catch (err) {
+        console.error(err);
+        res.json(err);
+    }
+});
 
 app.listen(port, async () => {
 
-  await sequelize.sync()
+  await sequelize.sync();
 
   console.log("Server started at port", port);
 });
