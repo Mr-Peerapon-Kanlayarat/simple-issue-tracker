@@ -5,12 +5,28 @@ import { createBrowserRouter, RouterProvider, Route, Link } from 'react-router-d
 
 import './index.css'
 import App from './App.jsx'
+import Register from './routes/Register.jsx';
+import Login from './routes/Login.jsx';
+import Home from './routes/Home.jsx';
+import Issue from './routes/Issue.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />
+    element: <Login />
   },
+  {
+    path: '/register',
+    element: <Register />
+  },
+  {
+    path: '/home',
+    element: <Home />
+  },
+  {
+    path: '/issue',
+    element: <Issue />
+  }
 ]);
 
 createRoot(document.getElementById('root')).render(
