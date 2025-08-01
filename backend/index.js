@@ -4,6 +4,9 @@ const { Sequelize, DataTypes } = require("sequelize");
 const app = express();
 app.use(express.json());
 
+const cors = require('cors');
+app.use(cors());
+
 const port = 8000;
 
 const sequelize = new Sequelize("issue_trackerDB", "postgres", "914524", {
