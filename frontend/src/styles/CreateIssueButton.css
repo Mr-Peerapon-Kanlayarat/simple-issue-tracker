@@ -1,0 +1,81 @@
+.create-issue-btn {
+  background: #3182ce;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(49,130,206,0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+  margin-bottom: 18px;
+}
+.create-issue-btn:hover {
+  background: #2563eb;
+  box-shadow: 0 4px 16px rgba(49,130,206,0.18);
+}
+
+.modal-overlay-issue {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-content-issue {
+  background: #fff;
+  border-radius: 14px;
+  padding: 32px 28px 24px 28px;
+  min-width: 320px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.modal-content-issue h2 {
+  margin: 0 0 10px 0;
+  color: #3182ce;
+  font-size: 1.2rem;
+}
+.modal-content-issue input,
+.modal-content-issue textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  background: #f7fafc;
+  color: #222;
+  resize: none;
+}
+.modal-content-issue textarea {
+  min-height: 60px;
+}
+.modal-actions-issue {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.modal-actions-issue button {
+  padding: 7px 18px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: #3182ce;
+  color: #ffffff;
+  transition: background 0.2s;
+}
+.modal-actions-issue button[type="button"] {
+  background: #e2e8f0;
+  color: #444;
+}
+.modal-actions-issue button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

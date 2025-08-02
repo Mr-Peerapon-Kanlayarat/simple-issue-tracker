@@ -156,6 +156,22 @@ app.get("/api/projects/:userId", async (req, res) => {
     }
 });
 
+// DELETE project
+app.delete("/api/projects/:projectId", async (req, res) => {
+  try {
+    const projectId = req.params.projectId;
+    const project = await Project.findByPk(projectId);
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+    await project.destroy();
+    res.json({ message: "Project deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Something went wrong", error: err.message });
+  }
+});
+
 // Issues
 // POST create issues
 app.post("/api/projects/:projectId/issues", async (req, res) => {
@@ -201,6 +217,22 @@ app.put("/api/issues/:issueId", async (req, res) => {
     issue.status = status;
     await issue.save();
     res.json(issue);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Something went wrong", error: err.message });
+  }
+});
+
+// DELETE issue
+app.delete("/api/issues/:issueId", async (req, res) => {
+  try {
+    const id = req.params.issueId;
+    const issue = await Issue.findByPk(id);
+    if (!issue) {
+      return res.status(404).json({ message: "Issue not found" });
+    }
+    await issue.destroy();
+    res.json({ message: "Issue deleted successfully" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Something went wrong", error: err.message });

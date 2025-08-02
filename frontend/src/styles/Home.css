@@ -3,7 +3,7 @@
   max-width: 900px;
   margin: 40px auto;
   padding: 24px;
-  background: #fff;
+  background: #F6F4EB;
   border-radius: 16px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.08);
 }
@@ -12,6 +12,13 @@
   text-align: center;
   margin-bottom: 32px;
   color: #2d3748;
+}
+
+.head-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
 }
 
 .card-list {
@@ -46,15 +53,4 @@
 .card-field strong {
   color: #2b6cb0;
   margin-right: 6px;
-}
-
-@media (max-width: 600px) {
-  .card.horizontal-card {
-    flex-direction: column;
-    gap: 12px;
-    padding: 14px 10px;
-  }
-  .home {
-    padding: 8px;
-  }
 }

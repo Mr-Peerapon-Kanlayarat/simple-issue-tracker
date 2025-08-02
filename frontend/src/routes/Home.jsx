@@ -3,6 +3,7 @@ import { useEffect, useState} from "react";
 import axios from 'axios';
 import "../styles/Home.css";
 import ProjectCard from "../components/ProjectCard";
+import CreateProjectButton from "../components/CreateProjectButton";
 
 function Home() {
   const [data, setData] = useState([]);
@@ -19,16 +20,28 @@ function Home() {
   }
 }
 
-  useEffect(() => {
+
+  const fetchProjects = () => {
     getData();
+  };
+
+  useEffect(() => {
+    fetchProjects();
   }, []);
+
+  const handleDeleted = (deletedId) => {
+    setData((prev) => prev.filter((p) => p.id !== deletedId));
+  };
 
   return (
     <div className="home">
-      <h1>Projects</h1>
+      <div className="head-container">
+        <h1>Projects</h1>
+        <CreateProjectButton onCreated={fetchProjects} />
+      </div>
       <div className="project-list">
         {data.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+          <ProjectCard key={project.id} project={project} onDeleted={handleDeleted} />
         ))}
       </div>
     </div>
